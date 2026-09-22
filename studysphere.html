@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Sphere – Study Smart, Not Hard</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8192C;
+    --gold: #F5A623;
+    --navy: #0D1B40;
+    --cream: #FFFBF2;
+    --sky: #4DC8F0;
+    --green: #2ECC71;
+    --light-gold: #FFF3CC;
+    --text: #1A1A2E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(255,251,242,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--gold);
+    padding: 14px 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+  }
+  .nav-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--red);
+    letter-spacing: 1px;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    background: var(--red);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 12px rgba(232,25,44,0.3);
+    transition: transform 0.2s, box-shadow 0.2s !important;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(232,25,44,0.4) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0D1B40 0%, #1a2f6b 50%, #0D1B40 100%);
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 70% 50%, rgba(245,166,35,0.12) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(77,200,240,0.10) 0%, transparent 50%);
+  }
+  .hero-blobs {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    animation: float 6s ease-in-out infinite;
+  }
+  .blob-1 { width: 400px; height: 400px; background: var(--gold); top: -100px; right: -100px; animation-delay: 0s; }
+  .blob-2 { width: 300px; height: 300px; background: var(--sky); bottom: -50px; left: 30%; animation-delay: 2s; }
+  .blob-3 { width: 200px; height: 200px; background: var(--red); top: 40%; left: -50px; animation-delay: 4s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-30px); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 650px;
+    animation: fadeUp 0.8s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(245,166,35,0.2);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+  .hero-badge::before { content: '✦'; }
+
+  .hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-title .accent-red { color: #FF6B7A; }
+
+  .hero-tagline {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 14px; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red), #c0102a);
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(232,25,44,0.4);
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(232,25,44,0.5); }
+
+  .btn-secondary {
+    background: transparent;
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: #fff; transform: translateY(-3px); }
+
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), #d4891e);
+    color: var(--navy);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(245,166,35,0.4);
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+    border: none; cursor: pointer;
+  }
+  .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(245,166,35,0.5); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+
+  .hero-visual {
+    position: absolute; right: 5%; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 16px;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+  .hero-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 18px 22px;
+    color: #fff;
+    width: 240px;
+  }
+  .hero-card-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .hero-card-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+  .hero-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.6); }
+
+  /* ── WAVE DIVIDER ── */
+  .wave { display: block; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 80px 5%; }
+
+  .section-label {
+    display: inline-block;
+    background: var(--light-gold);
+    color: var(--gold);
+    border: 1.5px solid var(--gold);
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem;
+    color: #555;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── SUBJECTS ── */
+  #subjects { background: #fff; }
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px; margin-top: 48px;
+  }
+  .subject-card {
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .subject-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(0,0,0,0.12); }
+  .subject-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: inherit;
+    filter: brightness(1.05);
+    z-index: 0;
+  }
+  .subject-card > * { position: relative; z-index: 1; }
+  .subject-card.english { background: linear-gradient(135deg, #E8F4FD, #BBDEFB); }
+  .subject-card.hindi { background: linear-gradient(135deg, #FFF3E0, #FFCC80); }
+  .subject-card.science { background: linear-gradient(135deg, #E8F5E9, #A5D6A7); }
+  .subject-card.social { background: linear-gradient(135deg, #FCE4EC, #F48FB1); }
+  .subject-emoji { font-size: 3rem; margin-bottom: 12px; display: block; }
+  .subject-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .subject-desc { font-size: 0.88rem; color: #555; line-height: 1.5; }
+
+  /* ── HOW IT WORKS ── */
+  #how { background: var(--cream); }
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px; margin-top: 48px;
+  }
+  .how-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    position: relative;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+  .how-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 10px 40px rgba(245,166,35,0.15);
+    transform: translateY(-6px);
+  }
+  .how-number {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3.5rem;
+    color: rgba(245,166,35,0.15);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .how-icon { font-size: 2rem; margin-bottom: 12px; }
+  .how-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .how-desc { font-size: 0.88rem; color: #666; line-height: 1.6; }
+
+  /* ── GRADES ── */
+  #grades {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a2f6b 100%);
+    color: #fff;
+  }
+  #grades .section-title { color: #fff; }
+  #grades .section-sub { color: rgba(255,255,255,0.65); }
+  .grades-wrapper {
+    display: flex; gap: 24px; margin-top: 48px;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .grade-pillar {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 32px 28px;
+    width: 260px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .grade-pillar:hover { transform: translateY(-8px); background: rgba(255,255,255,0.12); }
+  .grade-pillar.featured {
+    border: 2px solid var(--gold);
+    background: rgba(245,166,35,0.1);
+  }
+  .grade-pillar.featured::after {
+    content: '★ CURRENT';
+    position: absolute; top: 12px; right: 12px;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+  }
+  .grade-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .grade-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .grade-desc { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+  .grade-classes {
+    display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-top: 14px;
+  }
+  .grade-chip {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .grade-pillar.featured .grade-chip { background: rgba(245,166,35,0.2); color: var(--gold); }
+
+  /* ── WHY CHOOSE US ── */
+  #why { background: #fff; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; margin-top: 48px;
+  }
+  .why-card {
+    display: flex; gap: 16px;
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 24px 20px;
+    border-left: 4px solid var(--red);
+    transition: all 0.3s;
+  }
+  .why-card:hover { transform: translateX(6px); box-shadow: 0 8px 30px rgba(232,25,44,0.1); }
+  .why-card-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #fff, var(--light-gold));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .why-card-body h3 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .why-card-body p { font-size: 0.85rem; color: #666; line-height: 1.5; }
+
+  /* ── TECHNIQUE ── */
+  #technique {
+    background: linear-gradient(135deg, #FFF9EE, #FFF3CC);
+    text-align: center;
+  }
+  .technique-inner { max-width: 800px; margin: 0 auto; }
+  .technique-cards {
+    display: flex; gap: 20px; margin-top: 48px; flex-wrap: wrap; justify-content: center;
+  }
+  .tech-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 32px 28px;
+    width: 220px;
+    box-shadow: 0 8px 30px rgba(245,166,35,0.12);
+    transition: all 0.3s;
+    border: 2px solid transparent;
+  }
+  .tech-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(245,166,35,0.2); }
+  .tech-icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .tech-title { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: var(--navy); margin-bottom: 8px; }
+  .tech-desc { font-size: 0.83rem; color: #666; line-height: 1.5; }
+
+  /* ── ENROLL SECTION ── */
+  #enroll {
+    background: var(--red);
+    text-align: center;
+    padding: 80px 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  #enroll::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 20%, rgba(0,0,0,0.1) 0%, transparent 50%);
+  }
+  #enroll > * { position: relative; z-index: 1; }
+  #enroll .section-title { color: #fff; }
+  .enroll-sub { color: rgba(255,255,255,0.85); font-size: 1.05rem; margin-bottom: 36px; max-width: 500px; margin-inline: auto; line-height: 1.6; }
+  .enroll-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    background: #fff;
+    color: var(--red);
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-white:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+  .btn-outline-white {
+    background: transparent;
+    color: #fff;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.6);
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; transform: translateY(-3px); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--navy); color: #fff; text-align: center; }
+  #contact .section-title { color: #fff; }
+  .contact-cards {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-top: 48px;
+  }
+  .contact-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 32px 36px;
+    text-align: center;
+    transition: all 0.3s;
+    min-width: 200px;
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.12); transform: translateY(-6px); }
+  .contact-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .contact-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 8px; font-weight: 700; }
+  .contact-value { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--gold); }
+  .contact-sub { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080E24;
+    color: rgba(255,255,255,0.45);
+    text-align: center;
+    padding: 24px 5%;
+    font-size: 0.85rem;
+  }
+  footer span { color: var(--gold); font-weight: 700; }
+
+  /* ── FLOATING CTA ── */
+  .float-cta {
+    position: fixed; bottom: 28px; right: 28px; z-index: 200;
+    background: var(--red);
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(232,25,44,0.45);
+    font-size: 0.95rem;
+    display: flex; align-items: center; gap: 8px;
+    animation: pulse 2s ease infinite;
+    transition: transform 0.2s;
+  }
+  .float-cta:hover { transform: scale(1.05); }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 24px rgba(232,25,44,0.45); }
+    50% { box-shadow: 0 8px 36px rgba(232,25,44,0.7); }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero-visual { display: none; }
+    nav { padding: 12px 5%; }
+    .nav-links { display: none; }
+    #hero { padding: 100px 5% 60px; }
+    .hero-buttons { flex-direction: column; }
+    .btn-primary, .btn-secondary, .btn-gold { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- FLOATING CTA -->
+<a href="tel:7507751047" class="float-cta">📞 Enroll Now</a>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Study<span>Sphere</span></div>
+  <ul class="nav-links">
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#grades">Grade Coverage</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Classes 5 to 8 · Empowered by Aatulya</div>
+    <h1 class="hero-title">
+      Study <span class="accent">Smart,</span><br>
+      Not <span class="accent-red">Hard.</span>
+    </h1>
+    <p class="hero-tagline">Where Every Student Finds Their Spark 🌟</p>
+    <p class="hero-subtitle">Personalised coaching with visualisation techniques, structured learning, and expert guidance — so students learn faster and retain longer.</p>
+
+    <div class="hero-buttons">
+      <a href="tel:7507751047" class="btn-primary">🚀 Enroll Today</a>
+      <a href="#how" class="btn-gold">📖 How It Works</a>
+      <a href="#subjects" class="btn-secondary">See Subjects →</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Subjects</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Classes Covered</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3×</div>
+        <div class="hero-stat-label">Grade Coverage</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Personal Attention</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-icon">🧠</div>
+      <div class="hero-card-title">Visualisation Learning</div>
+      <div class="hero-card-sub">Concepts made visual & memorable</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">📋</div>
+      <div class="hero-card-title">Structured Classes</div>
+      <div class="hero-card-sub">Proven study framework for every student</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">👨‍👩‍👧‍👦</div>
+      <div class="hero-card-title">Small Batches</div>
+      <div class="hero-card-sub">Personal attention — always</div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section id="subjects">
+  <div class="section-label">What We Teach</div>
+  <h2 class="section-title">Subjects We Cover</h2>
+  <p class="section-sub">Four core subjects, taught with clarity, creativity, and confidence-building strategies.</p>
+
+  <div class="subjects-grid reveal">
+    <div class="subject-card english">
+      <span class="subject-emoji">📗</span>
+      <div class="subject-name">English</div>
+      <p class="subject-desc">Grammar, comprehension, writing skills and communication — building strong language foundations for life.</p>
+    </div>
+    <div class="subject-card hindi">
+      <span class="subject-emoji">📙</span>
+      <div class="subject-name">Hindi</div>
+      <p class="subject-desc">Reading, writing, literature and grammar in our mother tongue — taught with clarity and cultural pride.</p>
+    </div>
+    <div class="subject-card science">
+      <span class="subject-emoji">🔬</span>
+      <div class="subject-name">Science</div>
+      <p class="subject-desc">Concepts made visual and tangible — from biology to physics, understanding the world through curiosity.</p>
+    </div>
+    <div class="subject-card social">
+      <span class="subject-emoji">🌍</span>
+      <div class="subject-name">Social Science</div>
+      <p class="subject-desc">History, Geography, Civics — brought to life with stories, maps, and real-world connections.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div style="text-align:center">
+    <div class="section-label">Our Method</div>
+    <h2 class="section-title">How We Make Learning Easy</h2>
+    <p class="section-sub" style="margin:0 auto">A structured, proven method that replaces repetitive hard work with smart, joyful learning.</p>
+  </div>
+
+  <div class="how-grid reveal">
+    <div class="how-card">
+      <div class="how-number">01</div>
+      <div class="how-icon">🔍</div>
+      <div class="how-title">Concept Clarity First</div>
+      <p class="how-desc">Every topic is broken down into its simplest form before moving forward. No confusion, no gaps.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">02</div>
+      <div class="how-icon">🎨</div>
+      <div class="how-title">Visualisation Technique</div>
+      <p class="how-desc">We use mental imagery, diagrams and stories to help students encode information naturally and deeply.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">03</div>
+      <div class="how-icon">📐</div>
+      <div class="how-title">Structured Sessions</div>
+      <p class="how-desc">Each class follows a proven framework — learn, apply, test. Students always know what to expect.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">04</div>
+      <div class="how-icon">📝</div>
+      <div class="how-title">Regular Assessments</div>
+      <p class="how-desc">Frequent tests track progress and build exam confidence — small, stress-free, and constructive.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">05</div>
+      <div class="how-icon">🏠</div>
+      <div class="how-title">Homework Support</div>
+      <p class="how-desc">No student is left stuck at home. We guide them through assignments until they feel capable.</p>
+    </div>
+    <div class="how-card">
+      <div class="how-number">06</div>
+      <div class="how-icon">💬</div>
+      <div class="how-title">Personal Attention</div>
+      <p class="how-desc">Small batch sizes mean every student is seen, heard, and supported individually.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GRADES -->
+<section id="grades">
+  <div style="text-align:center">
+    <div class="section-label" style="background:rgba(245,166,35,0.15); border-color:var(--gold)">Grade Coverage</div>
+    <h2 class="section-title">We Cover All Three Levels</h2>
+    <p class="section-sub" style="margin:0 auto; color:rgba(255,255,255,0.65)">Whether catching up, staying on track, or racing ahead — we've got every student covered.</p>
+  </div>
+
+  <div class="grades-wrapper reveal">
+    <div class="grade-pillar">
+      <div class="grade-icon">⬅️</div>
+      <div class="grade-label">Previous Grade</div>
+      <p class="grade-desc">Fill in the gaps and build a rock-solid foundation before moving forward.</p>
+      <div class="grade-classes">
+        <span class="grade-chip">Revision</span>
+        <span class="grade-chip">Foundation</span>
+        <span class="grade-chip">Gap-fill</span>
+      </div>
+    </div>
+    <div class="grade-pillar featured">
+      <div class="grade-icon">🎯</div>
+      <div class="grade-label">Current Grade</div>
+      <p class="grade-desc">Master your curriculum with clarity, confidence, and strong exam preparation.</p>
+      <div class="grade-classes">
+        <span class="grade-chip">Class 5</span>
+        <span class="grade-chip">Class 6</span>
+        <span class="grade-chip">Class 7</span>
+        <span class="grade-chip">Class 8</span>
+      </div>
+    </div>
+    <div class="grade-pillar">
+      <div class="grade-icon">🚀</div>
+      <div class="grade-label">Advance Grade</div>
+      <p class="grade-desc">Get ahead of the curve — students are introduced to next-year concepts early.</p>
+      <div class="grade-classes">
+        <span class="grade-chip">Preview</span>
+        <span class="grade-chip">Advanced</span>
+        <span class="grade-chip">Head-start</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNIQUE -->
+<section id="technique">
+  <div class="technique-inner">
+    <div class="section-label">Special Techniques</div>
+    <h2 class="section-title">Learning That Sticks — For Good</h2>
+    <p class="section-sub" style="margin:0 auto">We use research-backed methods that make studying natural, enjoyable and effective.</p>
+
+    <div class="technique-cards reveal">
+      <div class="tech-card">
+        <div class="tech-icon">🧠</div>
+        <div class="tech-title">Visualisation</div>
+        <p class="tech-desc">Turn complex ideas into vivid mental images that are easy to recall during exams.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🗺️</div>
+        <div class="tech-title">Mind Mapping</div>
+        <p class="tech-desc">Organise topics visually to see connections and understand the bigger picture.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔁</div>
+        <div class="tech-title">Spaced Revision</div>
+        <p class="tech-desc">Smart revision schedules so students remember more with less effort over time.</p>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🎯</div>
+        <div class="tech-title">Structured Recall</div>
+        <p class="tech-desc">Active retrieval techniques that replace passive re-reading with deeper understanding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section id="why">
+  <div class="section-label">Why Study Sphere</div>
+  <h2 class="section-title">Everything a Student Needs</h2>
+  <p class="section-sub">We're not just another coaching class — we're a second home for curious, growing minds.</p>
+
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-card-icon">💡</div>
+      <div class="why-card-body">
+        <h3>Strong Concept Clarity</h3>
+        <p>Every student understands the 'why' behind every topic — not just the 'what'.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">👥</div>
+      <div class="why-card-body">
+        <h3>Small Batch Size</h3>
+        <p>Limited seats per batch ensure every child gets the time and focus they deserve.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">🎖️</div>
+      <div class="why-card-body">
+        <h3>Personal Attention</h3>
+        <p>Teachers know every student by name, strength, and area of growth.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">📊</div>
+      <div class="why-card-body">
+        <h3>Regular Tests & Assessments</h3>
+        <p>Consistent evaluation builds exam habits and removes last-minute panic.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">📚</div>
+      <div class="why-card-body">
+        <h3>Homework Assistance</h3>
+        <p>No student struggles alone. We make sure assignments get done — and understood.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-card-icon">🌈</div>
+      <div class="why-card-body">
+        <h3>No Repetitive Hard Work</h3>
+        <p>Our smart study techniques replace boring rote learning with effective retention strategies.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLL CTA -->
+<section id="enroll">
+  <h2 class="section-title">Ready to Start Smart?</h2>
+  <p class="enroll-sub">Give your child the advantage of learning done right. Seats are limited — enrol today and secure your child's spot.</p>
+  <div class="enroll-buttons">
+    <a href="tel:7507751047" class="btn-white">📞 Call to Enroll</a>
+    <a href="https://wa.me/917507751047" class="btn-outline-white">💬 WhatsApp Us</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="background:rgba(245,166,35,0.15); border-color:var(--gold)">Get In Touch</div>
+  <h2 class="section-title">Contact Us</h2>
+
+  <div class="contact-cards reveal">
+    <div class="contact-card">
+      <div class="contact-icon">📞</div>
+      <div class="contact-label">Call Us</div>
+      <div class="contact-value">7507751047</div>
+      <div class="contact-sub">Mon–Sat, 9 AM – 7 PM</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div class="contact-label">WhatsApp</div>
+      <div class="contact-value">7507751047</div>
+      <div class="contact-sub">Quick replies guaranteed</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🎓</div>
+      <div class="contact-label">Classes</div>
+      <div class="contact-value">5th – 8th</div>
+      <div class="contact-sub">All 4 core subjects</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">⚡</div>
+      <div class="contact-label">Powered By</div>
+      <div class="contact-value">Aatulya</div>
+      <div class="contact-sub">Quality education, always</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Study Sphere</span> · Study Smart, Not Hard · Empowered by <span>Aatulya</span></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger children of revealed grids
+  document.querySelectorAll('.subjects-grid, .how-grid, .why-grid, .technique-cards, .grades-wrapper').forEach(grid => {
+    grid.querySelectorAll(':scope > *').forEach((child, i) => {
+      child.style.transitionDelay = `${i * 80}ms`;
+    });
+  });
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.style.color = link.getAttribute('href') === `#${current}` ? 'var(--red)' : '';
+    });
+  });
+</script>
+</body>
+</html>
